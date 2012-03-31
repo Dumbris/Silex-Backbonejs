@@ -1,14 +1,14 @@
 {
-    "name"        : "lyrixx/Silex-Kitchen-Edition",
+    "name"        : "Dumbris/Silex-backbonejs",
     "type"        : "library",
     "description" : "A Silex Edition",
     "keywords"    : ["framework"],
-    "homepage"    : "https://github.com/lyrixx/Silex-Kitchen-Edition",
+    "homepage"    : "https://github.com/Dumbris/Silex-backbonejs",
     "license"     : "MIT",
     "authors"     : [
         {
-            "name"  : "Grégoire Pineau",
-            "email" : "lyrixx@lyrixx.info"
+            "name"  : "Algis Dumbris",
+            "email" : "a.dumbris@gmail.com"
         }
     ],
     "repositories": [
@@ -16,32 +16,104 @@
             "type": "package",
             "package": {
                 "name"    : "twitter/bootstrap",
-                "version" : "1.4.0",
+                "version" : "master",
                 "source"  : {
                     "url"       : "https://github.com/twitter/bootstrap.git",
                     "type"      : "git",
-                    "reference" : "v1.4.0"
+                    "reference" : "master"
                 }
             }
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/fate/Silex-Extensions.git"
+            "type": "package",
+            "package": {
+                "name"    : "ajkochanowicz/kickstrap",
+                "version" : "master",
+                "source"  : {
+                    "url"       : "https://github.com/ajkochanowicz/Kickstrap.git",
+                    "type"      : "git",
+                    "reference" : "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name"    : "modernizr/modernizr",
+                "version" : "dev-master",
+                "source"  : {
+                    "url"       : "https://github.com/Modernizr/Modernizr.git",
+                    "type"      : "git",
+                    "reference" : "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name"    : "documentcloud/underscore",
+                "version" : "master",
+                "source"  : {
+                    "url"       : "https://github.com/documentcloud/underscore.git",
+                    "type"      : "git",
+                    "reference" : "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name"    : "documentcloud/backbone",
+                "version" : "master",
+                "source"  : {
+                    "url"       : "https://github.com/documentcloud/backbone.git",
+                    "type"      : "git",
+                    "reference" : "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name"    : "jquery/jquery",
+                "version" : "master",
+                "source"  : {
+                    "url"       : "https://github.com/jquery/jquery.git",
+                    "type"      : "git",
+                    "reference" : "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "swslib/swslib",
+                "version": "master",
+                "source": {
+                    "url": "http://gitosis@git.local/sws-lib.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
         }
     ],
     "require": {
-        "php"                   : ">=5.3.2",
-        "silex/silex"           : "1.0.*",
-        "twig/twig"             : "1.6.2",
-        "monolog/monolog"       : ">=1.0.0",
-        "symfony/form"          : "2.1.*",
-        "symfony/translation"   : "2.1.*",
-        "symfony/twig-bridge"   : "2.1.*",
-        "symfony/validator"     : "2.1.*",
-        "symfony/yaml"          : "2.1.*",
-        "symfony/config"        : "2.1.*",
-        "kriswallsmith/assetic" : "1.0.x-dev",
-        "twitter/bootstrap"     : "1.4.0",
-        "fate/silex-extensions" : "dev-master"
+        "php"                           : ">=5.3.2",
+        "ajkochanowicz/kickstrap"       : "*",
+        "documentcloud/underscore"      : "*",
+        "documentcloud/backbone"        : "*",
+        "jquery/jquery"                 : "*",
+        "swslib/swslib"                 : "*",
+        "silex/silex"                   : "1.0.*",
+        "twig/twig"                     : "1.6.2",
+        "monolog/monolog"               : ">=1.0.0",
+        "symfony/form"                  : "2.1.*",
+        "symfony/translation"           : "2.1.*",
+        "symfony/twig-bridge"           : "2.1.*",
+        "symfony/validator"             : "2.1.*",
+        "symfony/yaml"                  : "2.1.*",
+        "symfony/config"                : "2.1.*",
+        "kriswallsmith/assetic"         : "1.0.x-dev",
+        "fate/silex-extensions"         : "dev-master"
     }
 }
