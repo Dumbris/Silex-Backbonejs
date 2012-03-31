@@ -3,3 +3,6 @@
 /log/*
 /vendor/
 /web/assets/*
+/.idea/
+/.vim/
+/tags

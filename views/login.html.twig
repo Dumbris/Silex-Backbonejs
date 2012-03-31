@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <h1>{{ form_name|default('Form')|trans }}</h1>
+    <form id="login" name="frmLogin" action="{{ path('login') }}" method="post" novalidate {{ form_enctype(form_login) }}>
+        {{ form_widget(form_login) }}
+        <div class="actions">
+            <input type="submit" value="{{ 'Send'|trans }}" class="btn primary">
+        </div>
+    </form>
+
+{% endblock %}
