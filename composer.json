@@ -102,6 +102,7 @@
         "ajkochanowicz/kickstrap"       : "*",
         "documentcloud/underscore"      : "*",
         "documentcloud/backbone"        : "*",
+        "modernizr/modernizr"           : "*",
         "jquery/jquery"                 : "*",
         "swslib/swslib"                 : "*",
         "silex/silex"                   : "1.0.*",

@@ -36,7 +36,7 @@ $app->register(new MonologServiceProvider(), array(
     'monolog.logfile'       => __DIR__.'/../log/app.log',
     'monolog.class_path'    => __DIR__.'/../vendor/silex/vendor/monolog/src',
     'monolog.name'          => 'app',
-    'monolog.level'         => 300 // = Logger::WARNING
+    'monolog.level'         => 200 // = Logger::WARNING
 ));
 
 $app->register(new TwigServiceProvider(), array(

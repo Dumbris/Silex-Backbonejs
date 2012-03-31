@@ -1,5 +1,5 @@
 {
-    "hash": "886782f12a5d5078e3509305edac46ad",
+    "hash": "7b6c4190d152bf09cd36a2e2f7377522",
     "packages": [
         {
             "package": "ajkochanowicz/kickstrap",
@@ -34,6 +34,11 @@
             "package": "kriswallsmith/assetic",
             "version": "1.0.x-dev",
             "source-reference": "14505a5dea4c8fbf3513b70608ba585d5235ee8b"
+        },
+        {
+            "package": "modernizr/modernizr",
+            "version": "dev-master",
+            "source-reference": "master"
         },
         {
             "package": "monolog/monolog",

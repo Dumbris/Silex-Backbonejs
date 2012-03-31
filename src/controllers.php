@@ -3,15 +3,58 @@
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Silex\Provider\ValidatorServiceProvider;
+use Silex\Provider\FormServiceProvider;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormError;
+
 
 $app->match('/', function() use ($app) {
     return $app['twig']->render('layout.html.twig');
 })->bind('homepage');
 
+
+$app->error(function (\Exception $e, $code) use ($app) {
+    switch ($code) {
+        case 404:
+            $message = 'The requested page could not be found.';
+            break;
+        default:
+            $message = 'We are sorry, but something went terribly wrong.';
+    }
+
+    //Always run javascript 
+    return new Response($app['twig']->render('layout.html.twig'), 200);
+    //return new Response($message, $code);
+});
+
+//Auth
+//
+$app->before(function (Request $request) use ($app) {
+    // redirect the user to the login screen if access to the Resource is protected
+    $unAuthUrls = array(
+        $app['url_generator']->generate('login'),
+        $app['url_generator']->generate('homepage'),
+    );
+
+    if (in_array($request->getRequestUri(), $unAuthUrls))
+    {
+        return;
+    }
+
+
+    if (!$app['session']->get('authToken')) {
+        if (0 === strpos($request->headers->get('Accept'), 'application/json')) 
+        {
+            return new Response('Unauthorized',403);
+        } else {
+            return new RedirectResponse($app['url_generator']->generate('login'));
+        }
+    }
+});
+
+/* Login */
 $app->match('/login', function() use ($app) {
 
     $constraint = new Assert\Collection(array(
@@ -30,7 +73,9 @@ $app->match('/login', function() use ($app) {
         ->add('email', 'email', array('label' => 'Email'))
         ->add('password', 'password', array('label' => 'Password'))
         ->getForm()
-    ;
+        ;
+
+    $ret = null;
 
     if ('POST' === $app['request']->getMethod()) {
         $form->bindRequest($app['request']);
@@ -40,53 +85,38 @@ $app->match('/login', function() use ($app) {
             $email = $form->get('email')->getData();
             $password = $form->get('password')->getData();
 
-            if ('email@example.com' == $email && 'password' == $password) {
-                $app['session']->set('user', array(
-                    'email' => $email,
-                ));
+            try {
+                if ($email == "test@test.com" && $password == "test") {
+                    $app['session']->set('authToken', array(
+                        'firstName' => 'Tester',
+                        'lastName' => 'Tester',
+                        'email' => $email
+                    ));
 
-                $app['session']->setFlash('notice', 'You are now connected');
-
-                return $app->redirect($app['url_generator']->generate('homepage'));
+                    //FIXME
+                    $app['session']->setFlash('notice', 'You are now connected');
+                    //FIXME
+                    return $app->redirect($app['url_generator']->generate('homepage'));
+                } else {
+                    $form->addError(new FormError('Wrong password'));
+                }
+            } catch(\Exception $ex)
+            {
+                $form->addError(new FormError($ex->getMessage()));
             }
 
-            $form->addError(new FormError('Email / password does not match (email@example.com / password)'));
         }
     }
-
-    return $app['twig']->render('form.html.twig', array('form' => $form->createView(), 'form_name' => 'Login'));
+    
+    return $app['twig']->render('login.html.twig', array('form_login' => $form->createView(), 'form_name' => 'Login'));
 })->bind('login');
 
+/* Logout */
 $app->match('/logout', function() use ($app) {
     $app['session']->clear();
 
     return $app->redirect($app['url_generator']->generate('homepage'));
 })->bind('logout');
 
-$app->get('/page-with-cache', function() use ($app) {
-    $response = new Response($app['twig']->render('page-with-cache.html.twig', array('date' => date('Y-M-d h:i:s'))));
-    $response->setCache(array(
-        'max_age'       => 10,
-        's_maxage'      => 10,
-    ));
-
-    return $response;
-})->bind('page_with_cache');
-
-$app->error(function (\Exception $e, $code) use ($app) {
-    if ($app['debug']) {
-        return;
-    }
-
-    switch ($code) {
-        case 404:
-            $message = 'The requested page could not be found.';
-            break;
-        default:
-            $message = 'We are sorry, but something went terribly wrong.';
-    }
-
-    return new Response($message, $code);
-});
 
 return $app;
